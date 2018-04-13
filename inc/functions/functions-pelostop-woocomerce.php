@@ -543,6 +543,7 @@ add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout');
 //Checkout seleccion de centro
 function checkout_seleccion_centro(){
 	
+
 	
 	$provincias = getProvincias();
 
@@ -567,6 +568,52 @@ function checkout_seleccion_centro(){
 	}
 
 	
+    // check if we need to fix the centers
+    $has_special_product = false;
+    global $woocommerce;
+    $items = $woocommerce->cart->get_cart();
+    foreach($items as $item => $values) { 
+      $_product =  wc_get_product( $values['data']->get_id()); 
+      if ($_product->get_id() == 11118) {
+        $has_special_product = true;
+      }
+    } 
+
+    if($has_special_product) {
+
+      $provinces = array();
+      array_push($provinces, "A CORUÑA");
+      array_push($provinces, "ASTURIAS");
+      array_push($provinces, "BARCELONA");
+      array_push($provinces, "CORDOBA");
+      array_push($provinces, "GUIPÚZCOA");
+      array_push($provinces, "JAÉN");
+      array_push($provinces, "MADRID");
+      array_push($provinces, "SALAMANCA");
+      array_push($provinces, "SEGOVIA");
+      array_push($provinces, "SEVILLA");
+      array_push($provinces, "TARRAGONA");
+      array_push($provinces, "ZARAGOZA");
+      $provincias = $provinces;
+
+      $centers = array();
+      array_push($centers, 154);
+      array_push($centers, 51);
+      array_push($centers, 146);
+      array_push($centers, 121);
+      array_push($centers, 99);
+      array_push($centers, 132);
+      array_push($centers, 144);
+      array_push($centers, 163);
+      array_push($centers, 175);
+      array_push($centers, 179);
+      array_push($centers, 147);
+      array_push($centers, 143);
+      array_push($centers, 101);
+      array_push($centers, 102);
+      array_push($centers, 151);
+    }
+
 	
 ?>
 <div class="checkout-item">
@@ -574,10 +621,11 @@ function checkout_seleccion_centro(){
 
 
 
+
 <form class="form-inline">
-  <div class="form-group">
-  		<select class="form-control" id="ps_provincia">
-        	<option value="">Provincia...</option>
+    <div class="form-group">
+    <select class="form-control" id="ps_provincia">
+    <option value="">Provincia...</option>
             <?php
 	
 				foreach($provincias as $provincia){
@@ -593,6 +641,7 @@ function checkout_seleccion_centro(){
 					print '<option '.$selected.' value="'.$provincia.'">'.$provincia.'</option>';	
 					
 				}
+    
 			?>
         </select>
   </div>
@@ -605,9 +654,10 @@ function checkout_seleccion_centro(){
 					
 					$centros = getCentrosByProvincia($user_centro['provincia']);
 					
+
 					
 					foreach($centros as $centro){
-						
+                      if(!$has_special_product || in_array($centro['centro_id'], $centers)) {
 							$selected = false;
 							if($user_centro['centro_id']==$centro['centro_id']){
 								$selected = 'selected="selected"';	
@@ -619,7 +669,8 @@ function checkout_seleccion_centro(){
 						print ', '.$centro['numero'];		
 						}
 						print ')</option>';
-						
+
+                      }
 					}
 
 				}
@@ -629,8 +680,7 @@ function checkout_seleccion_centro(){
             
             
         </select>
-  </div>
-</form>
+  </div> </form>
 
 
 
@@ -748,15 +798,21 @@ function updatePaymentsMethod(){
 													
 														var html = '<option value="">Centro...</option>';
 
-														for (var i in centros) {
-									 						var obj = centros[i];
-															html+='<option value="'+obj.centro_id+'">'+obj.nombre_web+' ('+obj.calle;
-															if(obj.numero!=''){
-															html+=', '+obj.numero;	
-															}
-															html+=')</option>';
+                                                        var centers = ['154', '51', '146', '121', '99', '132', '144', '163', '175', '179', '147', '143', '101', '102', '151'];
 
-															$("select#ps_centro").html(html);	
+														for (var i in centros) {
+
+									 						var obj = centros[i];
+                                                            // DIRK STFU
+                                                            if( '<?php echo $has_special_product; ?>' == "" || centers.includes(obj.centro_id) ) {
+                                                              html+='<option value="'+obj.centro_id+'">'+obj.nombre_web+' ('+obj.calle;
+                                                              if(obj.numero!=''){
+                                                                html+=', '+obj.numero;	
+                                                              }
+                                                              html+=')</option>';
+
+                                                              $("select#ps_centro").html(html);	
+                                                            }
 														}
 		
 												},

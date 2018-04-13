@@ -195,7 +195,6 @@ function getCentrosByProvincia($provincia){
 	$arr_centros = array();
 
 	foreach($centros as $centro){
-		
 		$cen = array();
 		$cen['nombre'] = $centro->post_title;
 		$cen['post_id'] = $centro->ID;
