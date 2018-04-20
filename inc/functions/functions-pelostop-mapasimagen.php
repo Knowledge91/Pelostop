@@ -15,7 +15,9 @@ function mapaImagen($args) {
 	if($route){
 		if($html = url_get_contents($route.'index.html')){
 				$html = str_replace('src="','src="'.$route,$html);
-				
+                if($route == "https://pelostop.es/wp-content/themes/pelostop/inc/mapas/home-man/") {
+                    $html = str_replace('homemujer', 'homehombre', $html);
+                }
 				return $html;
 		}
 		else

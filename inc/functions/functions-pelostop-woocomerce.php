@@ -574,7 +574,8 @@ function checkout_seleccion_centro(){
     $items = $woocommerce->cart->get_cart();
     foreach($items as $item => $values) { 
       $_product =  wc_get_product( $values['data']->get_id()); 
-      if ($_product->get_id() == 11118) {
+      $id = $_product->get_id();
+      if ($id == 11097 or $id == 11098 or $id == 11102 or $id == 11106 or $id == 11110 or $id == 11118 or $id == 11114 or $id == 11346 or $id == 11346) {
         $has_special_product = true;
       }
     } 
@@ -612,6 +613,16 @@ function checkout_seleccion_centro(){
       array_push($centers, 101);
       array_push($centers, 102);
       array_push($centers, 151);
+
+      array_push($centers, 117);
+      array_push($centers, 124);
+      array_push($centers, 145);
+      array_push($centers, 97);
+      array_push($centers, 96);
+      array_push($centers, 137);
+      array_push($centers, 122);
+      array_push($centers, 98);
+      array_push($centers, 24);
     }
 
 	
@@ -798,7 +809,7 @@ function updatePaymentsMethod(){
 													
 														var html = '<option value="">Centro...</option>';
 
-                                                        var centers = ['154', '51', '146', '121', '99', '132', '144', '163', '175', '179', '147', '143', '101', '102', '151'];
+                                                        var centers = ['154', '51', '146', '121', '99', '132', '144', '163', '175', '179', '147', '143', '101', '102', '151', '127', '124', '145', '97', '96', '137', '122', '98', '24'];
 
 														for (var i in centros) {
 
