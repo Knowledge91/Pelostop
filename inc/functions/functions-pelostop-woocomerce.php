@@ -575,7 +575,9 @@ function checkout_seleccion_centro(){
     foreach($items as $item => $values) { 
       $_product =  wc_get_product( $values['data']->get_id()); 
       $id = $_product->get_id();
-      if ($id == 11097 or $id == 11098 or $id == 11102 or $id == 11106 or $id == 11110 or $id == 11118 or $id == 11114 or $id == 11346 or $id == 11346) {
+      if ($id == 11097 or $id == 11098 or $id == 11102 or $id == 11106 or $id == 11110 or $id == 11118 or $id == 11114 or $id == 11346 or $id == 11346
+          or $id == 11853 or $id == 11854 or $id == 11855 or $id == 11856 or $id == 11857 or $id == 11858 or $id == 12219 or $id == 12220 or $id == 12221
+      or $id == 12222 or $id == 12223 or $id == 12224) {
         $has_special_product = true;
       }
     } 
