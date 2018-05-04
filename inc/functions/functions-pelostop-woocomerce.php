@@ -26,14 +26,11 @@ add_action('woocommerce_before_main_content',function(){global $pid,$post;$pid=$
 
 add_action('woocommerce_before_shop_loop','addMapa',1);
 function addMapa(){
-	
 	add_menu_tratamientos();
-	
-	
-	print mapaImagen(array('seccion'=>'tratamientos-'.$_SESSION['PS_SITE'])); 
+
+	print mapaImagen(array('seccion'=>'tratamientos-'.$_SESSION['PS_SITE']));
 	print '</div>';
 	print '<script src="'.get_template_directory_uri().'/js/pelostop-tratamientos.js"></script>';
-	
 }
 
 add_action( 'woocommerce_before_single_product_summary', 'add_menu_tratamientos',1 );
